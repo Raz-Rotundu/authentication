@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="/home/razvan/.sdkman/candidates/java/21.0.2-open" version="21.0.2"/>
+    <libraryInfo home="/home/razvan/.sdkman/candidates/java/25.0.1-tem" version="25.0.1"/>
+    <libraryInfo home="/home/razvan/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_25.0.1.v20251108-1451/jre" version="25.0.1"/>
+    <libraryInfo home="/home/razvan/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_25.0.1.v20251108-1451" version="25.0.1">
+        <bootpath>
+            <entry path="null"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="null"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="null"/>
+        </endorsedDirs>
+    </libraryInfo>
+</libraryInfos>
