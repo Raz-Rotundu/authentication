@@ -12,6 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Razvan
+ * Entity class representing the login information of a user within the system
+ */
+
 @Entity
 @Table(name = "users", uniqueConstraints = @
 UniqueConstraint(columnNames = "email"))
