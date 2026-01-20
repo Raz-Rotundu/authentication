@@ -37,14 +37,17 @@ public class SecurityConfiguration {
 	@Bean
 	protected DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
 		return http
+				// CSRF and CORS disabled
 				.csrf(AbstractHttpConfigurer::disable)
 				.cors(AbstractHttpConfigurer::disable)
+				// Only requests to /register and /token permitted
 				.authorizeHttpRequests(auth ->
 						auth.requestMatchers(
 								"/users/register",
 								"/users/token").permitAll()
 						.anyRequest().authenticated()
 				)
+				// Session set to stateless
 				.sessionManagement(sess -> sess.
 						sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.build();
