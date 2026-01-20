@@ -2,12 +2,14 @@ package com.example.authentication.service;
 
 import java.util.Optional;
 
+import com.example.authentication.dto.UserDto;
+
 public interface UserService {
 	
-	Optional<UserDTO> createUser(
+	Optional<UserDto> createUser(
 			String email, String password, String userType);
 
-	Optional<UserDTO> findByEmail(String email);
+	Optional<UserDto> findByEmail(String email);
 	
 	boolean validateUser(String email, String password);
 }
