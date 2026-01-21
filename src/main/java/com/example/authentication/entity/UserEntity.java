@@ -6,9 +6,11 @@ import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +25,7 @@ UniqueConstraint(columnNames = "email"))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserEntity {
 
 	@Id
@@ -33,4 +36,16 @@ public class UserEntity {
 	private String password;
 	private String userType;
 	
+	
+	/**
+	 * Function called on create to assign a UUID to user entity if it does not already exist
+	 */
+	@PrePersist
+	protected void onCreate() {
+		if(this.id == null) {
+			this.id = UUID.randomUUID();
+		}
+	}
+	
 }
+
