@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 				// CSRF and CORS disabled
 				.csrf(AbstractHttpConfigurer::disable)
 				.cors(AbstractHttpConfigurer::disable)
+				
 				// Only requests to /register and /token permitted
 				.authorizeHttpRequests(auth ->
 						auth.requestMatchers(
