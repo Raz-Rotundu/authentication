@@ -1,5 +1,9 @@
 package com.example.authentication.service;
 
+/**
+ * @author Razvan
+ * A hardcoded implementation of scoping based on user type. Could have it configured on external file in the future
+ */
 public class ScopeServiceImpl implements ScopeService {
 
 	@Override
