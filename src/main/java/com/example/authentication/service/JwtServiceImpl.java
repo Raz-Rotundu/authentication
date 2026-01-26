@@ -72,10 +72,11 @@ public class JwtServiceImpl implements JwtService {
 		// TODO place keys in external config file or DB
 		byte[] privateKeyBytes = Base64.getDecoder()
 				.decode("Insert Base64 private key here");
+				
 		
 		byte[] publicKeyBytes = Base64.getDecoder()
 				.decode("Insert Base64 public key here");
-		
+
 		// Generate privateKey from decoded bytes
 		PKCS8EncodedKeySpec privateKeySpec = 
 				new PKCS8EncodedKeySpec(privateKeyBytes);
