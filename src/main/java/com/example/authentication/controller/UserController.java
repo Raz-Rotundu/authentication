@@ -15,6 +15,11 @@ import com.example.authentication.service.JwtService;
 import com.example.authentication.service.ScopeService;
 import com.example.authentication.service.UserService;
 
+/**
+ * @author Razvan
+ * Controller for the authentication microservice
+ * Registers users and issues JWT tokens
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -38,6 +43,11 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * Registers a user using information from the request
+	 * @param userDto DTO representing the user to be created
+	 * @return a response entity with OK or BAD_REQUEST status
+	 */
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> registerUser(
 			@RequestBody UserDto userDto) {
@@ -48,7 +58,11 @@ public class UserController {
 		
 	}
 	
-	
+	/**
+	 * Issues a token based on a tokenRequest
+	 * @param tokenRequest the token request
+	 * @return a 200 response with the token, or an UNAUTHORIZED response otherwise
+	 */
 	@PostMapping(
 			value = "/token",
 			produces = "application/json",
@@ -56,23 +70,30 @@ public class UserController {
 	public ResponseEntity<TokenResponse> createToken(
 			@RequestBody TokenRequest tokenRequest) {
 		
+		// Invalid clients, nonexistent users, incorrect passwords are considered invalid
 		if(!"password".equals(tokenRequest.grant_type())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-		}
+		} 
 		
-		if(!clientService.validateClient(tokenRequest.client_id(), tokenRequest.client_secret())) {
+		else if(!clientService.validateClient(tokenRequest.client_id(), tokenRequest.client_secret())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 		
-		if(!userService.validateUser(tokenRequest.username(), tokenRequest.password())) {
+		else if(!userService.validateUser(tokenRequest.username(), tokenRequest.password())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		} 
+		
+		
+		else {
+			UserDto foundUser = userService.findByEmail(tokenRequest.username()).get();
+			
+			return ResponseEntity.ok(jwtService.getJwtToken(tokenRequest, 
+					scopeService.findScope(foundUser.getUserType()), 
+					foundUser.getEmail()));
 		}
 		
-		UserDto foundUser = userService.findByEmail(tokenRequest.username()).get();
 		
-		return ResponseEntity.ok(jwtService.getJwtToken(tokenRequest, 
-				scopeService.findScope(foundUser.getUserType()), 
-				foundUser.id()));
+
 		
 	}
 
